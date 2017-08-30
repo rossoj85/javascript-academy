@@ -1,0 +1,39 @@
+body{
+    background-image: url('https://wallpaperscraft.com/image/planet_light_spots_space_86643_1920x1080.jpg') ;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+h1{
+    color: red;
+    text-align: center;
+    
+}
+
+/* .campusOutterDiv{
+    border-radius: 30px;
+} */
+
+.campusHead{
+    border-radius: 30px;
+    background-color: lightgrey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    text-align: left;
+}
+.studentBox{
+    /* float: right; */
+    margin-left:100px;
+    border-radius: 30px;
+    /* float: right */
+}
+.studentsHead{
+    border-radius: 30px;
+    background-color: lightblue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    
+}
