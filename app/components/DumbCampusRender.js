@@ -1,8 +1,8 @@
 
 //DUMMY COMPONENT WHERE WE ARE DOING OUR OF ALL CAMPUSES
-
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Media} from 'react-bootstrap';
 
 export default class AllCampuses extends Component {
     //change all props to this.props we also now need a constructor 
@@ -36,31 +36,36 @@ export default class AllCampuses extends Component {
 // }
     render(){
       console.log(" DUmb Campus Props",this.props)
-      
+      const value =this.props.value //the new campus state -Allcampus view
     return (
         <div className="col-xs-6  campusHead" >
         
-          <h3 className>Campuses</h3>
-
+        <div id='campusForm'>
+          <h2 >Campuses</h2>
           <form onSubmit={this.props.handleSubmit}>
           Add a Campus {"\n"}
-          <input onChange = {this.props.handleChange}type="text" value={this.props.value} ></input>
-          <input type="submit"></input>
+          <input onChange = {this.props.handleChange}type="text" value={value} ></input>
+          <input type="submit" disabled={value.length<1} style={{color:'black'}}></input>
           </form>
-
-          <h3>
+        </div>
+          <div className='campusList'>
           {
             this.props.campuses.map(campus => (
-              <div key={campus.id}>
+              <Media key={campus.id} className='campus'>
+              <Media.Left align="top">
+              <img width={64} height={64} src={campus.imageUrl} alt="placeholder thumbnail" />
+            </Media.Left>
+            <Media.Body>
+              <Media.Heading onClick={()=>{this.props.selectCampus(campus.id)}} >
+                <h3 id='planetHeading'>{campus.name}</h3>
+                <button className="btn btn-danger" onClick={()=>this.props.handleClick(campus.id)}>X</button>
+              </Media.Heading>
               
-              <a onClick={()=>{this.props.selectCampus(campus.id)}} href='#'>
-              <h3>{campus.name}</h3>
-              </a>
-              <button className="btn btn-danger" onClick={()=>this.props.handleClick(campus.id)}>X</button>
-              
-              </div>
+              </Media.Body>
+              </Media>
             ))  
-          }</h3>
+          }
+          </div>
         </div>
       )
     }

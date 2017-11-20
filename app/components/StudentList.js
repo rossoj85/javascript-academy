@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-
+import {Media} from 'react-bootstrap';
 
 export default class StudentList extends Component{
     constructor(props){
@@ -84,29 +84,48 @@ export default class StudentList extends Component{
     let count=1
     return ( 
         
-        <div className="col-xs-4 studentBox" style={{backgroundColor: 'LightBlue'}}>
-          <h2 className="studentsHead">{`${campus.name} Campus Students`}</h2>
+        <div className="col-xs-4 studentBox">
+          <div id='studentForm'>
+            <h2 className="campusName">{`${campus.name} Campus Students`}</h2>
 
-          <form onSubmit={this.handleSubmit}>
-          <h4>Add a Student</h4> 
-          name
-          <input name="newStudentName"onChange = {this.handleChange}type="text" value={this.state.newStudentName} ></input> <br />
-          email
-          <input name="newStudentEmail" onChange = {this.handleChange}type="text" value={this.state.newStudentEmail} ></input>
-          <input type="submit"></input>
-          </form>
-          <h3>
+            <form onSubmit={this.handleSubmit} style={{marginLeft:'15px'}}>
+              <h4>Add a Student</h4> 
+              name
+              <input name="newStudentName"onChange = {this.handleChange}type="text" value={this.state.newStudentName} ></input> <br />
+              email
+              <input name="newStudentEmail" onChange = {this.handleChange}type="text" value={this.state.newStudentEmail} ></input>
+              <input type="submit"></input>
+            </form>
+          
+          </div>
+
+          
+          <div id='studentListMap'>
+
           {
             
             filteredStudents.map(student => (
-              <div key={student.id}>
-              <Link to={`/students/${student.id}`}>
-              <h3>{`${count++}. ${student.name}`}</h3>
-              </Link>
-              <button className="btn btn-danger" onClick={()=>this.handleClick(student.id)}>X</button>
+              // <div key={student.id}>
+              // <Link to={`/students/${student.id}`}>
+              // <h3>{`${count++}. ${student.name}`}</h3>
+              // </Link>
+              // <button className="btn btn-danger" onClick={()=>this.handleClick(student.id)}>X</button>
+              // </div>
+            <div key={student.id}>
+              <Media  className='student'>
+                <Media.Left align="top">
+                  <img width={64} height={64} src={student.imageUrl} alt="placeholder thumbnail" />
+                </Media.Left>
+                <Media.Body>
+                  <Media.Heading >
+                    <h3 id='planetHeading'>{`${count++}. ${student.name}`}</h3>
+                    <button className="btn btn-danger" onClick={()=>this.handleClick(student.id)}>X</button>
+                  </Media.Heading>
+                </Media.Body>
+              </Media>
               </div>
             ))  
-          }</h3>
+          }</div>
         </div>
       )
     }

@@ -11,59 +11,91 @@ h1{
     
 }
 
-/* .campusOutterDiv{
-    border-radius: 30px;
-} */
- /* .navbar.navbar-inverse{
-    background: transparent;
-    text-align: center;
-    margin: auto;
-}
-.container{
-    margin-left: 0px;
-    margin-right: 0px;
-}
-.navbar-collapse {
-    text-align: center;
-    margin-top: 40px;
-    background: transparent;
-}
-.navButtonDiv{
-    float: right;
-    margin: -30px 0px 0px 0px;
-}
-.navButton {
-    margin-right: 10px
-} */
 #navbar{
     margin-bottom: 100px
 }
 .navButtonsDiv{
     margin-top: 30px;
     text-align: right;
+    float: right;
 }
 .navButton{
-    margin-right: 20px
+    margin-right: 20px;
+    
 }
 .campusHead{
     border-radius: 30px;
-    background-color: lightgrey;
+    background: transparent;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     text-align: left;
+    margin-left:10px;
+    color: white;
+   
 }
-.studentBox{
-    /* float: right; */
-    margin-left:100px;
-    border-radius: 30px;
-    /* float: right */
+#campusForm{
+    background-color: grey;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: black;
 }
-.studentsHead{
+
+.campusName{
     border-radius: 30px;
     background-color: lightblue;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     padding-left: 10px;
+    margin-top:0px;
+    text-align: center;
     
+}
+.campus{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.campus.media{
+    background: rgba(128, 128, 128, .5);
+    
+}
+.campusList {
+    background: transparent;
+}
+#planetHeading {
+    display: inline-block;
+    margin-top: -25px;
+    margin-right: 10px;
+    cursor: pointer;
+    
+}
+#planetHeading:hover{
+    color: red;
+}
+
+.studentBox{
+    background: transparent;
+    margin-left:100px;
+    border-radius: 30px;
+    color: white;
+   
+}
+
+#studentForm {
+    border-radius: 20px;
+    background: lightblue;
+    color: black;
+}
+#studentsListMap{
+    background:  transparent;
+}
+.student {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.student.media{
+    background: rgba(173, 216, 230, .5);
+    margin-top: 15px;
 }

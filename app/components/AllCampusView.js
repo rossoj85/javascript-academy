@@ -82,12 +82,14 @@ handleClick(campusId){
       <input type="submit"></input>
       </form>
     */}
+      
         <DumbCampusRender campuses={this.state.campuses} 
                           selectCampus={this.selectCampus}
                           handleClick={this.handleClick}
                           handleChange={this.handleChange}
                           handleSubmit={this.handleSubmit}
                           value={this.state.newCampus}/>
+                          
        { this.state.selectedCampus.id?
          <StudentList  campus={this.state.selectedCampus}/>
          :<div></div>
