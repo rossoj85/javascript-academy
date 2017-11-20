@@ -8,7 +8,9 @@
 const User = require('./user')
 const Campus = require('./campus')
 
-Campus.hasMany(User, {as: 'student'})
+Campus.hasMany(User,{as: 'student'})
 User.belongsTo(Campus,{foreignKey: 'campusId', as: 'student'})
 
+//recently edited
+// User.hasOne(Campus)
 module.exports = {User, Campus}

@@ -2,7 +2,7 @@
 const api = require('express').Router()
 const db = require('../db')
 const User = require('../db/models/user')
-
+const Campus= require('../db/models/campus')
 
 // api.use('/campuses', require('./campus'))
 // api.use('/students', require('./students'))
@@ -19,15 +19,7 @@ api.get('/campuses',(req,res,next)=>{
 	.catch(next)
 })
 
-// api.get('/campuses/:id',(req,res,next)=>{
-// 	// const id = req.params.id
-// 	db.models.campus.findById(req.params.id)
-// 	.then(campus=>{
-// 		if(campus) res.json(campus)
-// 		 else{res.sendStatus(404)}
-// 	})
-// 	.catch(next)
-// })
+
 
 api.get('/campuses/:id',(req,res,next)=>{
 	// const id = req.params.id
@@ -43,9 +35,9 @@ api.get('/campuses/:id',(req,res,next)=>{
 	})
 	.catch(next)
 })
-
+//recently edited
 api.get('/students',(req,res,next)=>{ 
-	db.models.user.findAll({})
+	db.models.user.findAll({include:'student'})
 	.then(students=>res.json(students))
 	.catch(next)
 })
@@ -54,8 +46,9 @@ api.get('/students/:id',(req,res,next)=>{
 	// const id = req.params.id
 	db.models.user.findById(req.params.id)
 	.then(student=>{
-		if(student) res.json(student)
-		 res.sendStatus(404)
+		//if(student) res.json(student)
+		//res.sendStatus(404)
+		res.json(student)
 	})
 	.catch(next)
 })
@@ -87,8 +80,24 @@ api.put('/campuses/:id',(req,res,next)=>{
 	.catch(next);
 })
 
-api.delete('/campuses/:id',(req,res,next)=>{})
+api.delete('/campuses/:id',(req,res,next)=>{
+	db.models.campus.destroy({
+		where:{
+			id: req.params.id
+		}
+	})
+	.then(()=>res.status(204).end())
+	.catch(next)
+})
 
-api.delete('/students/:id',(req,res,next)=>{})
+api.delete('/students/:id',(req,res,next)=>{
+	db.models.user.destroy({
+		where:{
+			id: req.params.id
+		}
+	})
+	.then(()=>res.status(204).end())
+	.catch(next)
+})
 
 module.exports = api

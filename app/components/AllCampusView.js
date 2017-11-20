@@ -1,19 +1,22 @@
+//THis is where we are creatign the box that shows the all cmapuses. THe campuses are being rendered by a dummy component 
+
 import React, { Component } from 'react';
 import axios from 'axios';
-import AllCampuses from './AllCampuses';
+import DumbCampusRender from './DumbCampusRender';
 import StudentList from './StudentList';
 
-export default class Root extends Component {
+export default class OldRoot extends Component {
   constructor(props) {
     super(props)
     this.state={
       campuses: [],
       selectedCampus:{},
-      newCampus:{}
+      newCampus: ""
     }
     this.selectCampus=this.selectCampus.bind(this)
     this.handleChange=this.handleChange.bind(this)
     this.handleSubmit=this.handleSubmit.bind(this)
+    this.handleClick=this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -34,13 +37,15 @@ addCampus(){
 }
 handleSubmit(ev){
   // console.log("NEW CAMPUS", this.state.newCampus)
+  ev.preventDefault()
   axios.post('api/campuses',{
     name:this.state.newCampus})
   .then(response=>{
     console.log("SAVE SUCESSFUL", response)
     console.log("NEW CAMPUSES", this.state)
     // this.setState({newCampus: ""})
-    this.setState({campuses:[...this.state.campuses, response.data]})
+    this.setState({campuses:[...this.state.campuses, response.data],
+    newCampus:""})
   })
   .catch(console.log)
 
@@ -52,20 +57,37 @@ handleChange(ev){
   // console.log(`INSIDE handleChange ${ev.target.value}`)
 }
 
+handleClick(campusId){
+  console.log("Clicked")
+  axios.delete(`api/campuses/${campusId}`)
+  .then(response=>axios.get('/api/campuses')
+  )
+  .then(response=>response.data)
+  .then(campuses=>this.setState({campuses}))
+  // .then(campuses=>this.setState({campuses}))
+  .catch(console.log)
+}
+
   render() {
-    // console.log("new campus", this.state.newCampus)
+    console.log("INSIDE ALL CAPUS VIEW")
+    // console.log("ALL CAMPUS STATE", this.state)
   //  console.log('selected Campus', this.state.selectedCampus.name)
     return (
       <div id="main">
-      <h1>Interplanetary Academy of JavaScript</h1>
-
+      
+    {/*
       <form onSubmit={this.handleSubmit}>
       Add a Campus {"\n"}
-      <input onChange = {this.handleChange}type="text" ></input>
+      <input onChange = {this.handleChange}type="text" value={this.state.newCampus} ></input>
       <input type="submit"></input>
       </form>
-      
-        <AllCampuses campuses={this.state.campuses} selectCampus={this.selectCampus}/>
+    */}
+        <DumbCampusRender campuses={this.state.campuses} 
+                          selectCampus={this.selectCampus}
+                          handleClick={this.handleClick}
+                          handleChange={this.handleChange}
+                          handleSubmit={this.handleSubmit}
+                          value={this.state.newCampus}/>
        { this.state.selectedCampus.id?
          <StudentList  campus={this.state.selectedCampus}/>
          :<div></div>

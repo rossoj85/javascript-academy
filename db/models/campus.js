@@ -14,7 +14,10 @@ const images = [
 const getRandomImage = () => images[Math.floor(Math.random() * images.length)];
 
 var Campus = db.define('campus', {
-  name: Sequelize.STRING,
+  name: {
+  type:Sequelize.STRING,
+  allownull: false,
+  },
   
     imageUrl: {
       type: Sequelize.STRING,

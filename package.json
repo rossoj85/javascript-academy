@@ -7,7 +7,7 @@
     "test": "mocha **/*.test.js *.test.js",
     "build": "webpack",
     "build-watch": "webpack -w",
-    "start": "nodemon server/start.js"
+    "start": "webpack -w & nodemon server/start.js"
   },
   "keywords": [
     "react",
@@ -22,6 +22,7 @@
     "express": "^4.14.0",
     "pg": "^6.1.0",
     "react": "^15.3.2",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router-dom": "^4.1.1",
