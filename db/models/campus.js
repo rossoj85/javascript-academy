@@ -10,8 +10,8 @@ const planet3 = '/photos/planet3.jpg'
 const planet4 = '/photos/planet4.jpg'
 const planet5 = '/photos/planet5.jpg'
 const planet6 = '/photos/planet6.jpg'
-
-const images = [ planet1, planet2, planet3, planet4, planet5, planet6 ]
+const planet7 = '/photos/planet7.jpg'
+const images = [ planet1, planet2, planet3, planet4, planet5, planet6, planet7 ]
 
 const getRandomImage = () => images[Math.floor(Math.random() * images.length)];
 

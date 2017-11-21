@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Table} from 'react-bootstrap';
 import {Link,NavLink} from 'react-router-dom';
+import {Dropdown} from './index';
 
 export default class AllStudents extends Component{
     constructor(props) {
@@ -13,10 +14,13 @@ export default class AllStudents extends Component{
             students: [],
             studentName: '',
             studentEmail: '',
-            campusId: ''
+            campusId: '',
+            tempStudent: ''
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDropDownChange=this.handleDropDownChange.bind(this);
+        // this.handleDropDownClick=this.handleDropDownClick.bind(this);
       }
   componentDidMount() {
     axios.get('/api/students')
@@ -58,7 +62,23 @@ export default class AllStudents extends Component{
     let n = ev.target.name
     this.setState({[n]: ev.target.value})
   }
-  
+  handleDropDownChange(ev,student){
+    ev.preventDefault();
+    console.log(student)
+    console.log(ev.target.value)
+    axios.put(`api/students/${student.id}`,{
+      name: student.name,
+      email: student.email,
+      campusId: ev.target.value
+    })
+    .then(response=>console.log(response))
+  }
+
+
+  // handleDropDownClick(evt){
+  //   evt.preventDefault();
+  //   console.log(" Clicked")
+  // }
 
     render(){
         const students = this.state.students
@@ -71,79 +91,47 @@ export default class AllStudents extends Component{
         // console.log("FILTEROBJ",filterObj)
         // if(singleObj) console.log("Single",singleObj.name)
 
-        const optionTag = function(){
-          <select name="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="fiat">Fiat</option>
-          <option value="audi">Audi</option>
-        </select>
-        }
-
+    
 
         return (
-            <div>
-            <form onSubmit={this.handleSubmit}>
-              <div>
-                <input
-                  type="text"
-                  name="studentName"
-                  value ={this.state.studentName}
-                  placeholder = "Enter Student Name"
-                  onChange={this.handleChange} />
-                <br />
-
-                <input
-                type="text"
-                name="studentEmail"
-                value ={this.state.studentEmail}
-                placeholder = "Enter Student Email"
-                onChange={this.handleChange} />
-              <br />
-              <select onChange={(ev)=>this.setState({campusId: Number(ev.target.value)})}>
-              <option>Please Select Campus</option>
-              {
-                this.state.campuses.map(
-                  campus=><option key={campus.id} 
-                  name="campusId" 
-                  value={campus.id}
-                  >{campus.name}</option>
-                )
-              }
-              </select>
-            <br />
-            <input type="submit" />
-              </div>
-            </form>
-
-            <br />
-            <Table style ={{backgroundColor: 'grey'}}>
+          <div>
+          <h1 style={{color: 'red',
+                      marginTop: '-60px',
+                      marginBottom: '60px'}}>All Students
+                      </h1>
+           
+            <div id='hello'>
+            <Table className= 'allStudentsTable'>
             <thead>
-            <tr>
-              <th>Student ID</th>
-              <th>Student Name</th>
-              <th>Student Email</th>
-              <th>Campus</th>
-            </tr>
-          </thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Student Email</th>
+                <th>Campus</th>
+              </tr>
+            </thead>
           <tbody>
               {
                 students.map(student => {
                   const temp = this.state.campuses.filter(campus => campus.id === student.campusId)[0]
                   return (
                   
-                    
                     <tr key={student.id}>
                     <td><Link to = {`/students/${student.id}`}>{student.id}</Link></td>
                     <td><Link to = {`/students/${student.id}`}>{student.name}</Link></td>
                     <td><Link to = {`/students/${student.id}`}>{student.email}</Link></td>
-                    <td>{
+                    {/*<td>{
                       this.state.campuses.length > 0 ?
                        <div>{temp ? temp.name : 'Student needs to be assigned to campus'}</div>
                       : <div />
                     }
-                    </td>
-                      
+                  </td>*/}
+                      <td>{
+                        <Dropdown campuses={this.state.campuses}
+                                  temp ={temp}
+                                  student={student}
+                                  handleDropDownChange={this.handleDropDownChange}/>
+                      }</td>
                      
                   </tr>
                  
@@ -152,7 +140,41 @@ export default class AllStudents extends Component{
               }
            </tbody>
            </Table>
-          </div>
+
+           <form onSubmit={this.handleSubmit} id='asvStudentInputForm'>
+              <h4 style={{color:'red'}}>Enter a New Student</h4>
+             <input
+               type="text"
+               name="studentName"
+               value ={this.state.studentName}
+               placeholder = "Enter Student Name"
+               onChange={this.handleChange} />
+             <br />
+
+             <input
+             type="text"
+             name="studentEmail"
+             value ={this.state.studentEmail}
+             placeholder = "Enter Student Email"
+             onChange={this.handleChange} />
+             <br />
+             <select onChange={(ev)=>this.setState({campusId: Number(ev.target.value)})}>
+               <option>Please Select Campus</option>
+                 {
+                   this.state.campuses.map(
+                     campus=><option key={campus.id} 
+                     name="campusId" 
+                     value={campus.id}
+                     >{campus.name}</option>
+                   )
+                 }
+             </select>
+             <br />
+             <input type="submit" />
+           
+         </form>
+         </div>
+        </div>
           )
 
     }

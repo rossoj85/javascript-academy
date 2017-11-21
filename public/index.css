@@ -94,8 +94,46 @@ h1{
     border: 1px solid black;
     border-radius: 10px;
 }
+.student a {
+    color: white;
+}
+.student a:hover{
+    color:red;
+}
 
 .student.media{
     background: rgba(173, 216, 230, .5);
     margin-top: 15px;
+}
+
+
+/* //ALL STUDENTS VIEW */
+#hello{
+    display: flex;
+}
+#asvStudentInputForm{
+    width: 20%;
+    margin-left: 70%;
+    background: rgba(0, 0, 3, .9);
+    padding: px 20px;
+    /* height: 32%; */
+    text-align: center;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    position: fixed;
+}
+.allStudentsTable{
+    background-color: rgba(128, 128, 128, .8);
+    width: 60%;
+    /* margin: auto; */
+    border-radius: 30px;
+    color: white;
+    margin-left: 20px;
+}
+.allStudentsTable a{
+    color: white;
+
+}
+.allStudentsTable a:hover{
+    color: red;
 }

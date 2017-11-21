@@ -118,7 +118,7 @@ export default class StudentList extends Component{
                 </Media.Left>
                 <Media.Body>
                   <Media.Heading >
-                    <h3 id='planetHeading'>{`${count++}. ${student.name}`}</h3>
+                    <Link to ={`students/${student.id}`}><h3 id='planetHeading'>{`${count++}. ${student.name}`}</h3></Link>
                     <button className="btn btn-danger" onClick={()=>this.handleClick(student.id)}>X</button>
                   </Media.Heading>
                 </Media.Body>
