@@ -13,8 +13,8 @@ export default (props)=>{
   // console.log(handleDropDownChange)
     return(
         <form onClick={()=>console.log('SELECTED STUDENT', student)} style={{color: 'black'}}>
-        <select onChange={(ev)=>handleDropDownChange(ev, student)}>
-        <option>
+        <select onChange={(ev)=>handleDropDownChange(ev, student)} name="campusId">
+        <option defaultValue>
         {temp ? temp.name : 'Student needs to be assigned to campus'}
         </option>
           {

@@ -137,3 +137,16 @@ h1{
 .allStudentsTable a:hover{
     color: red;
 }
+
+/* //SINGLE STUDENT VIEW */
+#singleStudentMain{
+    margin: auto;
+}
+#singleStudentForm{
+    border-radius: 30px;
+    width: 40%;
+    text-align: center;
+    margin: auto;
+    background: black;
+    padding: 20px;
+}

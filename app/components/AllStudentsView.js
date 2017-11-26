@@ -15,12 +15,11 @@ export default class AllStudents extends Component{
             studentName: '',
             studentEmail: '',
             campusId: '',
-            tempStudent: ''
+            
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDropDownChange=this.handleDropDownChange.bind(this);
-        // this.handleDropDownClick=this.handleDropDownClick.bind(this);
       }
   componentDidMount() {
     axios.get('/api/students')
@@ -62,7 +61,7 @@ export default class AllStudents extends Component{
     let n = ev.target.name
     this.setState({[n]: ev.target.value})
   }
-  handleDropDownChange(ev,student){
+   handleDropDownChange(ev,student){
     ev.preventDefault();
     console.log(student)
     console.log(ev.target.value)
@@ -120,18 +119,12 @@ export default class AllStudents extends Component{
                     <td><Link to = {`/students/${student.id}`}>{student.id}</Link></td>
                     <td><Link to = {`/students/${student.id}`}>{student.name}</Link></td>
                     <td><Link to = {`/students/${student.id}`}>{student.email}</Link></td>
-                    {/*<td>{
-                      this.state.campuses.length > 0 ?
-                       <div>{temp ? temp.name : 'Student needs to be assigned to campus'}</div>
-                      : <div />
-                    }
-                  </td>*/}
-                      <td>{
-                        <Dropdown campuses={this.state.campuses}
-                                  temp ={temp}
-                                  student={student}
-                                  handleDropDownChange={this.handleDropDownChange}/>
-                      }</td>
+                    <td>{
+                      <Dropdown campuses={this.state.campuses}
+                                temp ={temp}
+                                student={student}
+                                handleDropDownChange={this.handleDropDownChange}/>
+                    }</td>
                      
                   </tr>
                  
@@ -140,7 +133,7 @@ export default class AllStudents extends Component{
               }
            </tbody>
            </Table>
-
+            {/*ENTER NEW STUDENT FORM*/}
            <form onSubmit={this.handleSubmit} id='asvStudentInputForm'>
               <h4 style={{color:'red'}}>Enter a New Student</h4>
              <input
