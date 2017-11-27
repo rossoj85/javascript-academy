@@ -15,7 +15,7 @@ export default (props)=>{
         <form onClick={()=>console.log('SELECTED STUDENT', student)} style={{color: 'black'}}>
         <select onChange={(ev)=>handleDropDownChange(ev, student)} name="campusId">
         <option defaultValue>
-        {temp ? temp.name : 'Student needs to be assigned to campus'}
+        {temp ? temp.name : 'Not assigned to campus'}
         </option>
           {
             campuses.map(

@@ -108,6 +108,10 @@ h1{
 
 
 /* //ALL STUDENTS VIEW */
+#buttonRow button{
+    margin-left: 90px;
+    margin-bottom: 10px
+}
 #hello{
     display: flex;
 }

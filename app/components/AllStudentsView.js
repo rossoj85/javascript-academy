@@ -14,7 +14,7 @@ export default class AllStudents extends Component{
             students: [],
             studentName: '',
             studentEmail: '',
-            campusId: '',
+            campusId: null,
             
         }
         this.handleChange = this.handleChange.bind(this)
@@ -22,6 +22,7 @@ export default class AllStudents extends Component{
         this.handleDropDownChange=this.handleDropDownChange.bind(this);
       }
   componentDidMount() {
+    console.log("COMPONENT MOUNTER")
     axios.get('/api/students')
     .then(res => res.data)
     .then(students => this.setState({students}))
@@ -48,7 +49,7 @@ export default class AllStudents extends Component{
       this.setState({students: [...this.state.students, response.data],
         studentName: '',
         studentEmail:'',
-        campusId:'',
+        campusId:null,
         })
     })
     .catch(console.log)
@@ -63,7 +64,7 @@ export default class AllStudents extends Component{
   }
    handleDropDownChange(ev,student){
     ev.preventDefault();
-    console.log(student)
+    console.log("handleDropdown CHange")
     console.log(ev.target.value)
     axios.put(`api/students/${student.id}`,{
       name: student.name,
@@ -73,24 +74,58 @@ export default class AllStudents extends Component{
     .then(response=>console.log(response))
   }
 
-
-  // handleDropDownClick(evt){
-  //   evt.preventDefault();
-  //   console.log(" Clicked")
-  // }
+  handleDelete(studentId){
+    console.log("Delete Clicked")
+    if(confirm ('Are you sure woy want ot dleete this student?')){
+    axios.delete(`api/students/${studentId}`)
+    .then(response=>axios.get('/api/students'))
+    .then(response=>response.data)
+    .then(allstudents=>this.setState({students: allstudents}))
+    .catch(console.log)
+    }
+  }
 
     render(){
         const students = this.state.students
         console.log("STATE", this.state)
-        // console.log("PROPS",this.props)
-        // console.log(this.state.campuses)
-        // const filterObj = this.state.campuses.filter(campus=>(+campus.id===4))
-        // const singleObj =filterObj[0]
-        // const singleObjName=singleObj.name
-        // console.log("FILTEROBJ",filterObj)
-        // if(singleObj) console.log("Single",singleObj.name)
+        console.log("students on Mount",students)
 
-    
+        //SORTS
+        //We need to make copies of array becasue sorting directly on students will mutate the array and cause 
+        //unwanted behavior
+
+        //SORT STUDENTS BY NAME
+        let nameArr = [].concat(students)
+        let studentsByName = nameArr.sort(function(a, b) {
+          var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+        //SORT STUDENTS BY ID 
+        let studentIdArr= [].concat(students)
+        const studentsById = studentIdArr.sort((a,b)=> a.id-b.id)
+
+        //SORT STUDENTS BY CAMPUS
+        let campusArr = [].concat(students)
+        const studentsByCampus =
+        campusArr.sort((a,b)=>{
+          var nameA = a.campus? a.campus.name.toUpperCase():null // ignore upper and lowercase
+          var nameB = b.campus? b.campus.name.toUpperCase(): null; // ignore upper and lowercase
+          console.log(nameA)
+          console.log(nameB)
+          return (nameA===null)-(nameB===null)|| +(nameA>nameB)||-(nameA<nameB)
+          })
+        console.log(students)
+        console.log("studentsByName",studentsByName)
+        console.log("studentsByID",studentsById)     
+        console.log('studentsByCampus',studentsByCampus)   
 
         return (
           <div>
@@ -99,6 +134,11 @@ export default class AllStudents extends Component{
                       marginBottom: '60px'}}>All Students
                       </h1>
            
+          <div id='buttonRow'>
+          <button className='btn btn-warning' onClick={()=>this.setState({students:studentsByName})} >Sort By Name</button>
+          <button className='btn btn-warning' onClick={()=>this.setState({students:studentsById})}>Sort By Id</button>
+          <button className='btn btn-warning' onClick={()=>this.setState({students:studentsByCampus})}>Sort By Campus</button>
+          </div>
             <div id='hello'>
             <Table className= 'allStudentsTable'>
             <thead>
@@ -107,6 +147,7 @@ export default class AllStudents extends Component{
                 <th>Student Name</th>
                 <th>Student Email</th>
                 <th>Campus</th>
+                <th>Delete Student</th>
               </tr>
             </thead>
           <tbody>
@@ -125,7 +166,8 @@ export default class AllStudents extends Component{
                                 student={student}
                                 handleDropDownChange={this.handleDropDownChange}/>
                     }</td>
-                     
+                    <td><button className='btn btn-danger'
+                                onClick={()=>this.handleDelete(student.id)}>x</button></td>
                   </tr>
                  
                 )
@@ -152,7 +194,7 @@ export default class AllStudents extends Component{
              onChange={this.handleChange} />
              <br />
              <select onChange={(ev)=>this.setState({campusId: Number(ev.target.value)})}>
-               <option>Please Select Campus</option>
+               <option value={NaN}>Please Select Campus</option>
                  {
                    this.state.campuses.map(
                      campus=><option key={campus.id} 

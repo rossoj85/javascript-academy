@@ -37,7 +37,9 @@ api.get('/campuses/:id',(req,res,next)=>{
 })
 //recently edited
 api.get('/students',(req,res,next)=>{ 
-	db.models.user.findAll({include:'student'})
+	db.models.user.findAll({
+		include:[{model:Campus, as: 'campus'}]
+	})
 	.then(students=>res.json(students))
 	.catch(next)
 })
@@ -86,7 +88,14 @@ api.delete('/campuses/:id',(req,res,next)=>{
 			id: req.params.id
 		}
 	})
-	.then(()=>res.status(204).end())
+	.then(()=>res.status(204))
+	.then(()=>{
+		db.models.campus.findAll({
+			include:[{model:User, as: 'student'}]
+		})
+		.then(campuses=>res.json(campuses))
+
+	})
 	.catch(next)
 })
 

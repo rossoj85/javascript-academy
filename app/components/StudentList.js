@@ -57,11 +57,13 @@ export default class StudentList extends Component{
 
       handleClick(studentId){
         console.log("Clicked")
+        if(confirm ('Are you sure woy want ot dleete this student?')){
         axios.delete(`api/students/${studentId}`)
         .then(response=>axios.get('/api/students'))
         .then(response=>response.data)
         .then(allstudents=>this.setState({students: allstudents}))
         .catch(console.log)
+        }
       }
 
 
@@ -73,14 +75,7 @@ export default class StudentList extends Component{
     const campusId =this.props.campus.id
     const filteredStudents =students.filter(student=>+student.campusId===+campusId)
     
-    // const filteredstudents = students.filter((student)=>student.)
-    // console.log("CAMPUS",campus)
-    // console.log("CampusId",campusId)
-    // console.log("STUDENTS",students)
-    // console.log("STUDENT ID",studentId)
-    // console.log("Filtered Students",filteredStudents)
-    // console.log("STUDENT LIST STATE",this.state)
-    // console.log("OUR STUDENT LIST PROPS",this.props)
+   
     let count=1
     return ( 
         
@@ -105,12 +100,7 @@ export default class StudentList extends Component{
           {
             
             filteredStudents.map(student => (
-              // <div key={student.id}>
-              // <Link to={`/students/${student.id}`}>
-              // <h3>{`${count++}. ${student.name}`}</h3>
-              // </Link>
-              // <button className="btn btn-danger" onClick={()=>this.handleClick(student.id)}>X</button>
-              // </div>
+         
             <div key={student.id}>
               <Media  className='student'>
                 <Media.Left align="top">

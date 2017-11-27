@@ -32,9 +32,7 @@ selectCampus(campusId){
   .then(campus=>this.setState({selectedCampus: campus}))
 }
 
-addCampus(){
-  axios.post('/campuses')
-}
+
 handleSubmit(ev){
   // console.log("NEW CAMPUS", this.state.newCampus)
   ev.preventDefault()
@@ -59,13 +57,17 @@ handleChange(ev){
 
 handleClick(campusId){
   console.log("Clicked")
+  if(confirm("Are you sure you want to delete this campus?")){
+  
   axios.delete(`api/campuses/${campusId}`)
-  .then(response=>axios.get('/api/campuses')
-  )
+  .then(response=>axios.get('/api/campuses'))
   .then(response=>response.data)
   .then(campuses=>this.setState({campuses}))
-  // .then(campuses=>this.setState({campuses}))
+  
   .catch(console.log)
+  } else{
+    console.log("campus delete cancelled")
+  }
 }
 
   render() {

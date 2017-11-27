@@ -9,7 +9,7 @@ const User = require('./user')
 const Campus = require('./campus')
 
 Campus.hasMany(User,{as: 'student'})
-User.belongsTo(Campus,{foreignKey: 'campusId', as: 'student'})
+User.belongsTo(Campus,{foreignKey: 'campusId', as: 'campus'})
 
 //recently edited
 // User.hasOne(Campus)
