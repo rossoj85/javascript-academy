@@ -77,14 +77,7 @@ handleClick(campusId){
     return (
       <div id="main">
       
-    {/*
-      <form onSubmit={this.handleSubmit}>
-      Add a Campus {"\n"}
-      <input onChange = {this.handleChange}type="text" value={this.state.newCampus} ></input>
-      <input type="submit"></input>
-      </form>
-    */}
-      
+    
         <DumbCampusRender campuses={this.state.campuses} 
                           selectCampus={this.selectCampus}
                           handleClick={this.handleClick}

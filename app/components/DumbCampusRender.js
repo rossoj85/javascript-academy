@@ -18,22 +18,6 @@ export default class AllCampuses extends Component {
      
     }
 
-  //   componentWillReceiveProps(nextProps){
-  //     console.log('nextprops', nextProps);
-  //     console.log('old props', this.props);
-  //     if (this.props.campuses.length !== nextProps.campuses.length) {
-  //         this.setState({campuses: nextProps.campuses});
-  //     }
-  // }
-// handleClick(campusId){
-//   console.log("Clicked")
-//   axios.delete(`api/campuses/${campusId}`)
-//   .then(response=>{
-//     axios.get('/api/campuses')
-//   })
-//   .then(campuses=>this.setState({campuses}))
-//   .catch(console.log)
-// }
     render(){
       console.log(" DUmb Campus Props",this.props)
       const value =this.props.value //the new campus state -Allcampus view
@@ -57,7 +41,7 @@ export default class AllCampuses extends Component {
             </Media.Left>
             <Media.Body>
               <Media.Heading onClick={()=>{this.props.selectCampus(campus.id)}} >
-                <h3 id='planetHeading'>{campus.name}</h3>
+                {campus.name}
                 <button className="btn btn-danger" onClick={()=>this.props.handleClick(campus.id)}>X</button>
               </Media.Heading>
               

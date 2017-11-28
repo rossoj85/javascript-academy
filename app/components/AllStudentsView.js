@@ -87,8 +87,8 @@ export default class AllStudents extends Component{
 
     render(){
         const students = this.state.students
-        console.log("STATE", this.state)
-        console.log("students on Mount",students)
+        // console.log("STATE", this.state)
+        // console.log("students on Mount",students)
 
         //SORTS
         //We need to make copies of array becasue sorting directly on students will mutate the array and cause 
@@ -118,14 +118,9 @@ export default class AllStudents extends Component{
         campusArr.sort((a,b)=>{
           var nameA = a.campus? a.campus.name.toUpperCase():null // ignore upper and lowercase
           var nameB = b.campus? b.campus.name.toUpperCase(): null; // ignore upper and lowercase
-          console.log(nameA)
-          console.log(nameB)
           return (nameA===null)-(nameB===null)|| +(nameA>nameB)||-(nameA<nameB)
           })
-        console.log(students)
-        console.log("studentsByName",studentsByName)
-        console.log("studentsByID",studentsById)     
-        console.log('studentsByCampus',studentsByCampus)   
+      
 
         return (
           <div>
