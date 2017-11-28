@@ -45,7 +45,7 @@ export default class AllStudents extends Component{
     .then(response => {
       console.log('SAVE SUCESSFUL', response.data)
       console.log('NEW STATE STUDENTS', this.state)
-      // this.setState({newCampus: ""})
+      // this.setState({newCampus: ""}) 
       this.setState({students: [...this.state.students, response.data],
         studentName: '',
         studentEmail:'',
