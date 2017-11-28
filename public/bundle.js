@@ -27036,7 +27036,11 @@
 	                  { onClick: function onClick() {
 	                      _this2.props.selectCampus(campus.id);
 	                    } },
-	                  campus.name,
+	                  _react2.default.createElement(
+	                    'h3',
+	                    { id: 'planetHeading' },
+	                    campus.name
+	                  ),
 	                  _react2.default.createElement(
 	                    'button',
 	                    { className: 'btn btn-danger', onClick: function onClick() {

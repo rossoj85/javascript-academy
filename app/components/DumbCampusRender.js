@@ -41,8 +41,9 @@ export default class AllCampuses extends Component {
             </Media.Left>
             <Media.Body>
               <Media.Heading onClick={()=>{this.props.selectCampus(campus.id)}} >
-                {campus.name}
+                <h3 id='planetHeading'>{campus.name}</h3>
                 <button className="btn btn-danger" onClick={()=>this.props.handleClick(campus.id)}>X</button>
+                
               </Media.Heading>
               
               </Media.Body>
